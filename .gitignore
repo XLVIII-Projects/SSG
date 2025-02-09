@@ -1,0 +1,10 @@
+# Generated files
+public/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
