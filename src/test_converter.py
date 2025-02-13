@@ -1,8 +1,8 @@
 import unittest
 
-from textnode import TextNode, TextType
-from htmlnode import HTMLNode, LeafNode, ParentNode
-from converter import text_node_to_html_node
+from src.textnode import TextNode, TextType
+from src.htmlnode import HTMLNode, LeafNode, ParentNode
+from src.converter import text_node_to_html_node
 
 
 class TestConverter(unittest.TestCase):

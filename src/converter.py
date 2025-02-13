@@ -1,5 +1,5 @@
-from textnode import TextNode, TextType
-from htmlnode import HTMLNode, LeafNode, ParentNode
+from src.textnode import TextNode, TextType
+from src.htmlnode import HTMLNode, LeafNode, ParentNode
 
 def text_node_to_html_node(text_node):
     if text_node.text_type == TextType.TEXT:
