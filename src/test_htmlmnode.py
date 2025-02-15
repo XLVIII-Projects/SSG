@@ -1,6 +1,6 @@
 import unittest
 
-from src.htmlnode import HTMLNode, LeafNode, ParentNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -22,7 +22,7 @@ class TestHTMLNode(unittest.TestCase):
         link_node = HTMLNode("tag", "value", None, None)
         self.assertEqual(link_node.props_to_html(), "")
 
-    #test leaf node
+    #test leaf nodee
     def test_leafnode(self):
         leaf_node = LeafNode("a", "Click here!", {"href": "https://www.google.com"})
         self.assertEqual(leaf_node.to_html(), '<a href="https://www.google.com">Click here!</a>')

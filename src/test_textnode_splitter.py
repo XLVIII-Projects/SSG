@@ -1,29 +1,38 @@
 import unittest
 
-from src.inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link
-from src.textnode import TextNode, TextType
+from textnode_splitter import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link
+from textnode import TextNode, TextType
 
 class TestSplitNode(unittest.TestCase):
      
     def test_split_texttype_bold(self):
         node = TextNode("This is a **bold** text node", TextType.TEXT)
         new_node = split_nodes_delimiter([node], "**", TextType.BOLD)
-        self.assertEqual(new_node, [TextNode("This is a ", TextType.TEXT), TextNode("bold", TextType.BOLD), TextNode(" text node", TextType.TEXT)])
+        self.assertEqual(new_node, [TextNode("This is a ", TextType.TEXT), 
+                                    TextNode("bold", TextType.BOLD), 
+                                    TextNode(" text node", TextType.TEXT)])
 
     def test_split_texttype_italic(self):
         node = TextNode("This is an *italic* text node", TextType.TEXT)
         new_node = split_nodes_delimiter([node], "*", TextType.ITALIC)
-        self.assertEqual(new_node, [TextNode("This is an ", TextType.TEXT), TextNode("italic", TextType.ITALIC), TextNode(" text node", TextType.TEXT)])
+        self.assertEqual(new_node, [TextNode("This is an ", TextType.TEXT), 
+                                    TextNode("italic", TextType.ITALIC), 
+                                    TextNode(" text node", TextType.TEXT)])
 
     def test_split_textype_code(self):
         node = TextNode("This is a `code` text node", TextType.TEXT)
         new_node = split_nodes_delimiter([node], "`", TextType.CODE)
-        self.assertEqual(new_node, [TextNode("This is a ", TextType.TEXT), TextNode("code", TextType.CODE), TextNode(" text node", TextType.TEXT)])
+        self.assertEqual(new_node, [TextNode("This is a ", TextType.TEXT), 
+                                    TextNode("code", TextType.CODE), 
+                                    TextNode(" text node", TextType.TEXT)])
 
     def test_split_multiplenodes(self):
         node = [TextNode("This is a `code` text node", TextType.TEXT), TextNode("This is an *italic* text node", TextType.TEXT)]
         new_node = split_nodes_delimiter(node, "*", TextType.ITALIC)
-        self.assertEqual(new_node, [TextNode("This is a `code` text node", TextType.TEXT), TextNode("This is an ", TextType.TEXT), TextNode("italic", TextType.ITALIC), TextNode(" text node", TextType.TEXT)])
+        self.assertEqual(new_node, [TextNode("This is a `code` text node", TextType.TEXT), 
+                                    TextNode("This is an ", TextType.TEXT), 
+                                    TextNode("italic", TextType.ITALIC), 
+                                    TextNode(" text node", TextType.TEXT)])
 
     def test_split_boldnode(self):
         node = TextNode("**This is a bold text node**", TextType.BOLD)
@@ -179,7 +188,9 @@ class TestSplitNodesImageLink(unittest.TestCase):
         new_node = split_nodes_link([node])
         self.assertEqual(new_node, [
             TextNode("link", TextType.LINK, "https://example.com"),
-            TextNode("another link", TextType.LINK, "https://example.com")])          
+            TextNode("another link", TextType.LINK, "https://example.com")])    
+
+
 
 if __name__ == "__main__":
     unittest.main()
