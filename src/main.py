@@ -12,7 +12,7 @@ def main():
     copy_source_to_dest("static", "public")
 
     # generate html page
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 def extract_title(markdown):
     lines = markdown.split("\n")
@@ -20,6 +20,20 @@ def extract_title(markdown):
         if line.startswith("# "):
             return line[2:]
     raise Exception("Error: no heading found starting with '# '")
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    directory_items = os.listdir(dir_path_content)
+    for item in directory_items:
+        source_path = os.path.join(dir_path_content, item)
+        dest_path = os.path.join(dest_dir_path, item).replace(".md",".html")
+        # dest_path = dest_path.replace(".md",".html")
+        if os.path.isdir(source_path):
+            os.makedirs(dest_path, exist_ok=True)
+            generate_pages_recursive(source_path, template_path, dest_path)
+        elif source_path.endswith(".md"):
+            generate_page(source_path, template_path, dest_path)
+        else:
+            continue
 
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
